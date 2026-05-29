@@ -1,1023 +1,400 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VP Anna's Express — Authentic Sri Lankan & South Indian Food · Watford</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STUDIO — Сайты, которые продают</title>
+<meta name="description" content="Создаём современные сайты и лендинги, которые приносят клиентов. Дизайн, разработка, анимация." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet" />
 <style>
-:root {
-  --saffron:   #e8821a;
-  --saffron-l: #f5a040;
-  --turmeric:  #d4a017;
-  --curry:     #c05a1a;
-  --green:     #2d6a3f;
-  --green-l:   #3d8a52;
-  --leaf:      #4a7c3a;
-  --cream:     #fdf6ec;
-  --cream-d:   #f5e8d4;
-  --warm:      #3a2010;
-  --brown:     #5a3018;
-  --muted:     #8a6848;
-  --white:     #ffffff;
-  --text:      #1e1008;
+/* ===== ПЕРЕМЕННЫЕ / ЦВЕТА ===== */
+:root{
+  --bg:#0a0a0f;
+  --bg-soft:#12121a;
+  --card:#16161f;
+  --text:#f2f2f5;
+  --muted:#9a9aa8;
+  --accent:#7c5cff;
+  --accent-2:#00e5b0;
+  --border:rgba(255,255,255,.08);
+  --radius:22px;
+  --max:1180px;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Manrope',system-ui,-apple-system,sans-serif;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:'Unbounded',sans-serif;line-height:1.1;letter-spacing:-.02em}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.container{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
+section{position:relative}
+.accent{color:var(--accent)}
+.gradient-text{
+  background:linear-gradient(100deg,var(--accent),var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
 
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  height:64px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 48px;
-  background:rgba(253,246,236,0);
-  transition:background .4s,box-shadow .4s;
-}
-nav.scrolled{background:rgba(253,246,236,.97);backdrop-filter:blur(16px);box-shadow:0 2px 20px rgba(58,32,16,.1)}
-.nav-logo{
-  font-family:'Fraunces',serif;font-size:21px;font-weight:900;
-  color:var(--white);text-decoration:none;
-  display:flex;align-items:center;gap:10px;
-  transition:color .3s;
-}
-nav.scrolled .nav-logo{color:var(--warm)}
-.nav-logo-leaf{font-size:20px}
-.nav-links{display:flex;gap:28px;list-style:none}
-.nav-links a{
-  font-size:13px;font-weight:600;color:rgba(255,255,255,.7);
-  text-decoration:none;transition:color .2s;
-}
-nav.scrolled .nav-links a{color:var(--muted)}
-.nav-links a:hover{color:var(--saffron)!important}
-.nav-order{
-  background:var(--saffron);color:var(--white);
-  padding:9px 22px;border-radius:100px;
-  font-size:13px;font-weight:700;
-  border:none;cursor:pointer;text-decoration:none;
-  transition:background .2s,transform .2s;
-}
-.nav-order:hover{background:var(--saffron-l);transform:translateY(-1px)}
-.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
-.hbg span{width:22px;height:2px;background:var(--white);border-radius:2px;display:block;transition:all .3s}
-nav.scrolled .hbg span{background:var(--warm)}
-.mob-nav{
-  display:none;position:fixed;top:64px;left:0;right:0;z-index:199;
-  background:var(--cream);border-bottom:2px solid var(--cream-d);
-  padding:20px 32px 28px;flex-direction:column;gap:0;
-  box-shadow:0 8px 32px rgba(58,32,16,.1);
-}
-.mob-nav.open{display:flex}
-.mob-nav a{
-  font-size:15px;font-weight:600;color:var(--warm);text-decoration:none;
-  padding:14px 0;border-bottom:1px solid var(--cream-d);transition:color .2s;
-}
-.mob-nav a:hover{color:var(--saffron)}
-
-/* ── HERO ── */
-.hero{
-  min-height:100vh;display:flex;align-items:center;
-  background:var(--warm);
-  position:relative;overflow:hidden;
-}
-.hero-bg{
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 80% 60% at 70% 40%,rgba(232,130,26,.25) 0%,transparent 60%),
-    radial-gradient(ellipse 40% 50% at 10% 80%,rgba(212,160,23,.12) 0%,transparent 55%),
-    linear-gradient(160deg,#1e0e06 0%,#3a2010 55%,#1a0e06 100%);
-}
-.hero-pattern{
-  position:absolute;inset:0;opacity:.06;
-  background-image:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f5a040' fill-opacity='1'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10S0 14.5 0 20s4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5 4.5-10 10-10s-10 4.5-10 10-4.5 10-10 10 10-4.5 10-10z'/%3E%3C/g%3E%3C/svg%3E");
-}
-.hero-inner{
-  position:relative;z-index:2;width:100%;
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:60px;align-items:center;
-  padding:80px 60px;
-  max-width:1260px;margin:0 auto;
-}
-.hero-eyebrow{
+/* ===== КНОПКИ ===== */
+.btn{
   display:inline-flex;align-items:center;gap:10px;
-  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
-  border-radius:100px;padding:6px 16px;margin-bottom:24px;
-  animation:fadeUp .9s .2s both;
+  padding:15px 28px;border-radius:100px;font-weight:700;font-size:15px;
+  cursor:pointer;border:none;transition:transform .25s ease,box-shadow .25s ease;
+  white-space:nowrap;
 }
-.hero-eyebrow-flag{font-size:14px}
-.hero-eyebrow span{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.65)}
-.hero-h1{
-  font-family:'Fraunces',serif;font-weight:900;
-  font-size:clamp(48px,7vw,90px);line-height:.95;letter-spacing:-1px;
-  color:var(--white);margin-bottom:12px;
-  animation:fadeUp .9s .4s both;
-}
-.hero-h1 em{font-style:italic;color:var(--saffron-l)}
-.hero-sub{
-  font-family:'Fraunces',serif;font-style:italic;
-  font-size:clamp(16px,2vw,22px);color:rgba(255,255,255,.45);
-  margin-bottom:24px;animation:fadeUp .9s .5s both;
-}
-.hero-desc{
-  font-size:14px;font-weight:300;line-height:1.85;
-  color:rgba(255,255,255,.5);max-width:460px;
-  margin-bottom:36px;animation:fadeUp .9s .6s both;
-}
-.hero-btns{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp .9s .75s both}
-.btn-saffron{
-  background:var(--saffron);color:var(--white);
-  padding:13px 28px;border-radius:100px;
-  font-size:13px;font-weight:700;
-  border:none;cursor:pointer;text-decoration:none;
-  display:inline-flex;align-items:center;gap:8px;
-  transition:all .25s;
-}
-.btn-saffron:hover{background:var(--saffron-l);transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,130,26,.35)}
-.btn-ghost-w{
-  background:transparent;color:rgba(255,255,255,.75);
-  padding:13px 28px;border-radius:100px;
-  font-size:13px;font-weight:600;
-  border:1px solid rgba(255,255,255,.2);
-  cursor:pointer;text-decoration:none;
-  display:inline-flex;align-items:center;gap:8px;
-  transition:all .25s;
-}
-.btn-ghost-w:hover{border-color:rgba(255,255,255,.5);color:var(--white)}
-.hero-tags{
-  display:flex;gap:8px;flex-wrap:wrap;
-  margin-top:28px;animation:fadeUp .9s .9s both;
-}
-.hero-tag{
-  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
-  border-radius:100px;padding:5px 14px;
-  font-size:11px;font-weight:600;letter-spacing:.5px;
-  color:rgba(255,255,255,.5);
-}
+.btn-primary{background:linear-gradient(100deg,var(--accent),#9b7cff);color:#fff;box-shadow:0 10px 30px rgba(124,92,255,.35)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(124,92,255,.5)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--accent);transform:translateY(-3px)}
 
-/* hero right */
-.hero-right{display:flex;flex-direction:column;gap:14px;animation:fadeUp .9s .5s both}
-.hero-card{
-  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
-  border-radius:16px;padding:22px 24px;
-  display:flex;align-items:center;gap:18px;
-  transition:background .2s;
-}
-.hero-card:hover{background:rgba(255,255,255,.11)}
-.hero-card-icon{font-size:28px;flex-shrink:0}
-.hero-card-num{
-  font-family:'Fraunces',serif;font-weight:700;font-size:26px;
-  color:var(--saffron-l);line-height:1;margin-bottom:3px;
-}
-.hero-card-lbl{font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.3px}
-.hero-banana-leaf{
-  background:linear-gradient(135deg,rgba(45,106,63,.4),rgba(74,124,58,.3));
-  border:1px solid rgba(45,106,63,.4);
-  border-radius:16px;padding:20px 24px;
-  display:flex;align-items:center;gap:14px;
-}
-.hero-banana-text{font-size:13px;font-weight:600;color:rgba(255,255,255,.7);line-height:1.5}
-.hero-banana-text strong{color:var(--saffron-l)}
+/* ===== ШАПКА ===== */
+header{position:fixed;top:0;left:0;right:0;z-index:100;transition:.3s}
+header.scrolled{background:rgba(10,10,15,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.logo{font-family:'Unbounded';font-weight:800;font-size:22px;letter-spacing:-.03em}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:34px}
+.nav-links a{color:var(--muted);font-weight:600;font-size:15px;transition:.2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{display:flex;align-items:center;gap:16px}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
+.burger span{width:26px;height:2px;background:var(--text);transition:.3s}
+.burger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.active span:nth-child(2){opacity:0}
+.burger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+/* ===== HERO ===== */
+.hero{padding:170px 0 110px;text-align:center;position:relative}
+.glow{position:absolute;border-radius:50%;filter:blur(120px);opacity:.5;z-index:0;pointer-events:none}
+.glow-1{width:500px;height:500px;background:var(--accent);top:-100px;left:-150px}
+.glow-2{width:420px;height:420px;background:var(--accent-2);top:80px;right:-120px;opacity:.3}
+.hero .container{position:relative;z-index:1}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:100px;
+  background:var(--bg-soft);border:1px solid var(--border);font-size:14px;color:var(--muted);font-weight:600;margin-bottom:30px;
+}
+.badge .dot{width:8px;height:8px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 12px var(--accent-2)}
+.hero h1{font-size:clamp(40px,7vw,82px);margin-bottom:26px}
+.hero p{font-size:clamp(16px,2.2vw,21px);color:var(--muted);max-width:620px;margin:0 auto 40px}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.hero-stats{display:flex;gap:50px;justify-content:center;margin-top:70px;flex-wrap:wrap}
+.stat .num{font-family:'Unbounded';font-size:clamp(30px,5vw,46px);font-weight:800}
+.stat .label{color:var(--muted);font-size:14px;font-weight:600}
 
-/* ── TICKER ── */
-.ticker{overflow:hidden;padding:13px 0;background:var(--saffron)}
-.ticker-track{display:flex;animation:ticker 22s linear infinite;white-space:nowrap}
-.ticker-item{
-  font-family:'Fraunces',serif;font-style:italic;font-size:14px;
-  color:rgba(255,255,255,.9);padding:0 28px;
-  display:inline-flex;align-items:center;gap:14px;
-}
-.ticker-item::after{content:'🌿';font-size:10px;font-style:normal}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* ===== ОБЩИЕ ЗАГОЛОВКИ СЕКЦИЙ ===== */
+.sec{padding:100px 0}
+.sec-head{text-align:center;max-width:680px;margin:0 auto 60px}
+.sec-head .tag{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+.sec-head h2{font-size:clamp(30px,5vw,52px);margin:14px 0 16px}
+.sec-head p{color:var(--muted);font-size:17px}
 
-/* ── ABOUT ── */
-#about{padding:110px 60px;background:var(--cream)}
-.ab-inner{max-width:1240px;margin:0 auto}
-.ab-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.sec-tag{
-  font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
-  color:var(--saffron);display:flex;align-items:center;gap:10px;margin-bottom:18px;
-}
-.sec-tag::before{content:'';width:28px;height:1.5px;background:var(--saffron)}
-.sec-h2{
-  font-family:'Fraunces',serif;font-weight:900;
-  font-size:clamp(36px,4vw,54px);line-height:1.05;letter-spacing:-1px;
-  color:var(--warm);margin-bottom:20px;
-}
-.sec-h2 em{font-style:italic;color:var(--saffron)}
-.ab-text{font-size:14px;font-weight:300;line-height:1.9;color:var(--muted);margin-bottom:14px}
-.ab-quote{
-  margin:28px 0;padding:20px 24px;
-  background:rgba(232,130,26,.07);border-left:3px solid var(--saffron);
-  font-family:'Fraunces',serif;font-style:italic;font-size:17px;
-  color:var(--warm);line-height:1.55;
-}
-.ab-feats{display:flex;flex-direction:column;gap:0;margin-top:28px}
-.abfeat{
-  display:flex;gap:16px;padding:16px 0;
-  border-bottom:1px solid var(--cream-d);transition:padding-left .2s;
-}
-.abfeat:hover{padding-left:8px}
-.abfeat-icon{
-  width:40px;height:40px;background:var(--warm);border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;flex-shrink:0;
-}
-.abfeat-title{font-weight:700;font-size:14px;color:var(--warm);margin-bottom:3px}
-.abfeat-desc{font-size:12px;color:var(--muted);line-height:1.6}
+/* ===== ПОЧЕМУ САЙТ В 2026 ===== */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.why-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:34px;transition:.3s}
+.why-card:hover{transform:translateY(-6px);border-color:rgba(124,92,255,.5)}
+.why-card .ic{font-size:32px;margin-bottom:18px}
+.why-card h3{font-size:21px;margin-bottom:10px}
+.why-card p{color:var(--muted);font-size:15px}
 
-.ab-right{position:relative}
-.ab-img{
-  aspect-ratio:3/4;border-radius:20px;overflow:hidden;
-  background:linear-gradient(145deg,#3a2010,#1e0e06);
-  display:flex;align-items:center;justify-content:center;
-  font-size:120px;position:relative;
-}
-.ab-img::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 40%,rgba(30,14,6,.75) 100%);
-}
-.ab-img-caption{
-  position:absolute;bottom:28px;left:24px;right:24px;z-index:2;
-  font-family:'Fraunces',serif;font-style:italic;
-  font-size:16px;color:rgba(253,246,236,.9);line-height:1.5;
-}
-.ab-badge{
-  position:absolute;top:-16px;right:-16px;
-  background:var(--green);border-radius:14px;padding:16px 20px;
-  box-shadow:0 12px 32px rgba(45,106,63,.3);text-align:center;
-}
-.ab-badge-num{font-family:'Fraunces',serif;font-weight:700;font-size:28px;color:var(--white)}
-.ab-badge-txt{font-size:10px;color:rgba(255,255,255,.6);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
-.ab-stats{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid var(--cream-d);margin-top:28px}
-.abstat{padding:20px 14px;text-align:center;border-right:1.5px solid var(--cream-d);transition:background .2s}
-.abstat:last-child{border-right:none}
-.abstat:hover{background:rgba(232,130,26,.05)}
-.abstat-n{font-family:'Fraunces',serif;font-weight:900;font-size:30px;color:var(--warm);line-height:1;margin-bottom:5px}
-.abstat-l{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+/* ===== УСЛУГИ ===== */
+.serv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.serv-card{position:relative;background:linear-gradient(160deg,var(--bg-soft),var(--card));border:1px solid var(--border);border-radius:var(--radius);padding:40px;overflow:hidden;transition:.3s}
+.serv-card:hover{transform:translateY(-6px)}
+.serv-card::after{content:'';position:absolute;inset:0;background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(124,92,255,.12),transparent 60%);opacity:0;transition:.3s}
+.serv-card:hover::after{opacity:1}
+.serv-card .num{font-family:'Unbounded';font-size:15px;color:var(--accent);font-weight:700}
+.serv-card h3{font-size:25px;margin:14px 0 12px}
+.serv-card p{color:var(--muted);font-size:15px;position:relative;z-index:1}
 
-/* ── MENU ── */
-#menu{padding:110px 60px;background:var(--warm)}
-.mn-inner{max-width:1240px;margin:0 auto}
-.sec-h2-l{
-  font-family:'Fraunces',serif;font-weight:900;
-  font-size:clamp(36px,4vw,54px);line-height:1.05;letter-spacing:-1px;
-  color:var(--cream);margin-bottom:14px;
-}
-.sec-h2-l em{font-style:italic;color:var(--saffron-l)}
-.sec-d-l{font-size:14px;font-weight:300;color:rgba(253,246,236,.45);max-width:440px;margin:0 auto;line-height:1.7}
-.mn-head{text-align:center;margin-bottom:52px}
-.sec-tag-c{
-  font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
-  color:var(--saffron-l);display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:14px;
-}
-.sec-tag-c::before,.sec-tag-c::after{content:'';width:28px;height:1px;background:var(--saffron-l);opacity:.4}
-.mn-tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:44px}
-.mtab{
-  padding:9px 20px;border-radius:100px;
-  font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  background:transparent;color:rgba(253,246,236,.4);
-  border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .2s;
-}
-.mtab.active,.mtab:hover{background:var(--saffron);color:var(--white);border-color:var(--saffron)}
-.mn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.mcard{
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
-  border-radius:16px;overflow:hidden;
-  transition:all .3s;cursor:default;
-}
-.mcard:hover{background:rgba(255,255,255,.1);transform:translateY(-4px);border-color:rgba(232,130,26,.3)}
-.mcard-img{
-  height:170px;background:linear-gradient(135deg,rgba(90,48,24,.8),rgba(58,32,16,.9));
-  display:flex;align-items:center;justify-content:center;
-  font-size:64px;position:relative;overflow:hidden;
-}
-.mcard-img::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(30,14,6,.5) 100%)}
-.mcard-body{padding:20px}
-.mcard-cat{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--saffron-l);margin-bottom:8px}
-.mcard-name{font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:var(--cream);margin-bottom:8px;line-height:1.2}
-.mcard-desc{font-size:12px;font-weight:300;color:rgba(253,246,236,.45);line-height:1.65;margin-bottom:14px}
-.mcard-foot{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid rgba(255,255,255,.07)}
-.mcard-price{font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:var(--saffron-l)}
-.mcard-badge{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(255,255,255,.1);color:rgba(253,246,236,.35);border-radius:100px}
+/* ===== ПОРТФОЛИО ===== */
+.works-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.work-card{display:block;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:var(--card);transition:.4s}
+.work-card:hover{transform:translateY(-8px);border-color:rgba(124,92,255,.5)}
+.work-thumb{height:300px;background-size:cover;background-position:center;position:relative;transition:.5s}
+.work-card:hover .work-thumb{transform:scale(1.04)}
+.work-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,15,.85),transparent 60%)}
+.work-body{padding:24px 26px 28px}
+.work-body h3{font-size:22px;margin-bottom:8px}
+.work-body p{color:var(--muted);font-size:14px;margin-bottom:14px}
+.work-tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag-chip{font-size:12px;font-weight:600;color:var(--accent-2);background:rgba(0,229,176,.1);padding:6px 12px;border-radius:100px}
+.work-arrow{display:inline-flex;align-items:center;gap:6px;margin-top:16px;color:var(--accent);font-weight:700;font-size:14px}
 
-/* ── SPECIALS ── */
-#specials{padding:110px 60px;background:var(--cream)}
-.sp-inner{max-width:1240px;margin:0 auto}
-.sp-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.sp-meals{display:flex;flex-direction:column;gap:0}
-.sp-meal{
-  display:flex;gap:20px;align-items:flex-start;
-  padding:24px;border-bottom:1.5px solid var(--cream-d);
-  transition:background .2s,padding-left .2s;
-  border-radius:0;
-}
-.sp-meal:hover{background:rgba(232,130,26,.05);padding-left:32px}
-.sp-meal-icon{font-size:36px;flex-shrink:0;padding-top:2px}
-.sp-meal-name{font-family:'Fraunces',serif;font-weight:700;font-size:20px;color:var(--warm);margin-bottom:6px}
-.sp-meal-desc{font-size:13px;font-weight:300;color:var(--muted);line-height:1.65;margin-bottom:8px}
-.sp-meal-price{
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--saffron);color:var(--white);
-  border-radius:100px;padding:4px 12px;
-  font-size:12px;font-weight:700;
-}
-.sp-right .sec-tag{margin-bottom:16px}
-.sp-h2{
-  font-family:'Fraunces',serif;font-weight:900;
-  font-size:clamp(34px,3.5vw,50px);letter-spacing:-1px;
-  color:var(--warm);margin-bottom:18px;line-height:1.1;
-}
-.sp-h2 em{font-style:italic;color:var(--saffron)}
-.sp-text{font-size:14px;font-weight:300;line-height:1.9;color:var(--muted);margin-bottom:28px}
-.sp-leaf-note{
-  display:flex;align-items:flex-start;gap:14px;
-  background:rgba(45,106,63,.07);border:1px solid rgba(45,106,63,.15);
-  border-radius:14px;padding:18px 20px;margin-bottom:28px;
-}
-.sp-leaf-note p{font-size:13px;color:var(--green);line-height:1.65;font-weight:500}
+/* ===== ПРОЦЕСС ===== */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.step{position:relative;padding-top:20px}
+.step .n{font-family:'Unbounded';font-size:54px;font-weight:800;color:rgba(255,255,255,.07);line-height:1}
+.step h3{font-size:19px;margin:6px 0 10px}
+.step p{color:var(--muted);font-size:14px}
 
-/* ── REVIEWS ── */
-#reviews{padding:110px 60px;background:var(--cream-d)}
-.rv-inner{max-width:1240px;margin:0 auto}
-.rv-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px}
-.rv-rating{text-align:right}
-.rv-big{font-family:'Fraunces',serif;font-weight:900;font-size:72px;color:var(--warm);line-height:1;letter-spacing:-2px}
-.rv-stars{color:var(--saffron);font-size:20px;margin:4px 0}
-.rv-count{font-size:12px;color:var(--muted);letter-spacing:.5px}
-.rv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.rcard{
-  background:var(--white);padding:28px;border-radius:16px;
-  border:1.5px solid var(--cream-d);transition:all .3s;
+/* ===== CTA / КОНТАКТЫ ===== */
+.cta-wrap{background:linear-gradient(135deg,rgba(124,92,255,.18),rgba(0,229,176,.1));border:1px solid var(--border);border-radius:32px;padding:60px;text-align:center;position:relative;overflow:hidden}
+.cta-wrap h2{font-size:clamp(28px,5vw,48px);margin-bottom:16px}
+.cta-wrap p{color:var(--muted);font-size:17px;max-width:520px;margin:0 auto 34px}
+.form{display:flex;flex-direction:column;gap:14px;max-width:440px;margin:0 auto}
+.form input,.form textarea{
+  width:100%;padding:16px 20px;border-radius:14px;background:var(--bg);
+  border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:15px;transition:.2s;
 }
-.rcard:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(58,32,16,.1);border-color:var(--saffron)}
-.rcard-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.rcard-av{
-  width:40px;height:40px;border-radius:50%;background:var(--warm);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Fraunces',serif;font-size:16px;color:var(--cream);font-weight:700;flex-shrink:0;
-}
-.rcard-stars{color:var(--saffron);font-size:13px;letter-spacing:2px}
-.rcard-text{font-size:13px;font-weight:300;color:var(--text);line-height:1.8;margin-bottom:18px;font-style:italic}
-.rcard-foot{padding-top:14px;border-top:1.5px solid var(--cream-d)}
-.rcard-name{font-weight:700;font-size:13px;color:var(--warm)}
-.rcard-src{font-size:10px;color:var(--muted);margin-top:2px;letter-spacing:.3px}
+.form input:focus,.form textarea:focus{outline:none;border-color:var(--accent)}
+.form textarea{resize:vertical;min-height:90px}
 
-/* ── ORDER ── */
-#order{padding:110px 60px;background:var(--cream)}
-.or-inner{max-width:1240px;margin:0 auto}
-.or-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
-.or-platforms{display:flex;flex-direction:column;gap:14px;margin-top:32px}
-.or-platform{
-  display:flex;align-items:center;gap:18px;
-  background:var(--cream-d);border:1.5px solid var(--cream-d);
-  border-radius:14px;padding:20px 24px;
-  text-decoration:none;transition:all .2s;
-}
-.or-platform:hover{border-color:var(--saffron);background:rgba(232,130,26,.05);transform:translateX(6px)}
-.or-platform-icon{font-size:32px;flex-shrink:0}
-.or-platform-name{font-weight:700;font-size:15px;color:var(--warm);margin-bottom:3px}
-.or-platform-desc{font-size:12px;color:var(--muted)}
-.or-platform-arrow{margin-left:auto;font-size:18px;color:var(--saffron)}
+/* ===== ПОДВАЛ ===== */
+footer{padding:60px 0 40px;border-top:1px solid var(--border);margin-top:80px}
+.foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
+.foot-links{display:flex;gap:24px;flex-wrap:wrap}
+.foot-links a{color:var(--muted);font-weight:600;font-size:15px;transition:.2s}
+.foot-links a:hover{color:var(--text)}
+.copy{color:var(--muted);font-size:14px;margin-top:30px;text-align:center}
 
-.or-info{background:var(--warm);border-radius:20px;padding:40px;color:var(--cream)}
-.or-info-title{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin-bottom:4px}
-.or-info-sub{font-size:12px;color:rgba(253,246,236,.5);margin-bottom:28px;letter-spacing:.3px}
-.or-info-items{display:flex;flex-direction:column;gap:0}
-.or-info-item{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.07)}
-.or-info-ico{font-size:18px;flex-shrink:0;padding-top:2px}
-.or-info-lbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(253,246,236,.3);margin-bottom:3px}
-.or-info-val{font-size:13px;color:rgba(253,246,236,.8)}
-.or-info-val a{color:var(--saffron-l);text-decoration:none}
+/* ===== АНИМАЦИИ ПОЯВЛЕНИЯ ===== */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.show{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+.glow-1{animation:float 7s ease-in-out infinite}
+.glow-2{animation:float 9s ease-in-out infinite reverse}
 
-/* ── FOOTER ── */
-footer{background:var(--warm);padding:60px 60px 36px;border-top:3px solid var(--saffron)}
-.ft-inner{max-width:1240px;margin:0 auto}
-.ft-top{
-  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:52px;
-  padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:32px;
-}
-.ft-logo{font-family:'Fraunces',serif;font-weight:900;font-size:24px;color:var(--cream);margin-bottom:4px}
-.ft-slogan{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(253,246,236,.3);margin-bottom:16px;font-style:italic}
-.ft-desc{font-size:13px;font-weight:300;color:rgba(253,246,236,.4);line-height:1.7;margin-bottom:22px;max-width:260px}
-.ft-socials{display:flex;gap:8px}
-.ftsoc{
-  width:36px;height:36px;border-radius:10px;
-  border:1px solid rgba(255,255,255,.1);
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;color:rgba(255,255,255,.35);text-decoration:none;
-  transition:all .2s;
-}
-.ftsoc:hover{background:var(--saffron);border-color:var(--saffron);color:var(--white)}
-.ft-col-h{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(253,246,236,.25);margin-bottom:18px}
-.ft-links{list-style:none;display:flex;flex-direction:column;gap:10px}
-.ft-links a{font-size:13px;font-weight:300;color:rgba(253,246,236,.4);text-decoration:none;transition:color .2s}
-.ft-links a:hover{color:var(--saffron-l)}
-.ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.ft-copy{font-size:11px;color:rgba(253,246,236,.2)}
-.ft-badge{
-  display:flex;align-items:center;gap:8px;
-  background:rgba(232,130,26,.15);border:1px solid rgba(232,130,26,.25);
-  border-radius:100px;padding:6px 16px;
-}
-.ft-badge span{font-size:11px;color:var(--saffron-l);font-weight:700;letter-spacing:.5px}
-
-/* ── FLOAT ── */
-.float{
-  position:fixed;bottom:28px;right:28px;z-index:100;
-  background:var(--saffron);color:var(--white);
-  padding:11px 22px;border-radius:100px;
-  font-size:12px;font-weight:700;letter-spacing:.3px;
-  box-shadow:0 8px 28px rgba(232,130,26,.45);
-  text-decoration:none;display:flex;align-items:center;gap:8px;
-  transition:all .2s;animation:floatAnim 3s ease-in-out infinite;
-}
-.float:hover{background:var(--saffron-l);transform:translateY(-3px)}
-@keyframes floatAnim{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-
-/* ── REVEAL ── */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .75s,transform .75s}
-.reveal.visible{opacity:1;transform:translateY(0)}
-.rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}
-
-/* ── MOBILE ── */
-@media(max-width:960px){
-  nav{padding:0 24px}
-  .nav-links,.nav-order{display:none}
-  .hbg{display:flex}
-  .hero-inner{grid-template-columns:1fr;padding:80px 28px 60px;gap:40px}
-  .hero-right{display:none}
-  .hero-h1{font-size:clamp(46px,13vw,72px)}
-  #about,#menu,#specials,#reviews,#order{padding:72px 24px}
-  .ab-grid,.sp-grid,.or-grid{grid-template-columns:1fr;gap:48px}
-  .ab-right{display:none}
-  .mn-grid,.rv-grid{grid-template-columns:1fr;gap:12px}
-  .ft-top{grid-template-columns:1fr;gap:32px}
-  footer{padding:48px 24px 28px}
-  .ab-stats{grid-template-columns:1fr 1fr 1fr}
-  .rv-head{flex-direction:column;align-items:flex-start;gap:16px}
-}
-@media(max-width:600px){
-  .hero-btns{flex-direction:column}
-  .btn-saffron,.btn-ghost-w{width:100%;justify-content:center}
+/* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+@media(max-width:900px){
+  .why-grid,.serv-grid,.works-grid,.steps{grid-template-columns:1fr}
+  .steps{gap:34px}
+  .nav-links{
+    position:fixed;top:0;right:0;height:100vh;width:78%;max-width:320px;
+    background:var(--bg-soft);flex-direction:column;justify-content:center;gap:30px;
+    transform:translateX(100%);transition:.4s;border-left:1px solid var(--border);z-index:99;
+  }
+  .nav-links.open{transform:translateX(0)}
+  .nav-links a{font-size:20px}
+  .nav-cta .btn{display:none}
+  .burger{display:flex;z-index:100}
+  .cta-wrap{padding:40px 24px}
+  .hero-stats{gap:32px}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="nav">
-  <a href="#" class="nav-logo">
-    <span class="nav-logo-leaf">🌿</span>
-    VP Anna's Express
-  </a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#menu">Menu</a></li>
-    <li><a href="#specials">Specials</a></li>
-    <li><a href="#reviews">Reviews</a></li>
-    <li><a href="#order">Order</a></li>
-  </ul>
-  <a href="#order" class="nav-order">Order Now</a>
-  <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
-</nav>
-<div class="mob-nav" id="mobNav">
-  <a href="#about">About Us</a>
-  <a href="#menu">Our Menu</a>
-  <a href="#specials">Special Meals</a>
-  <a href="#reviews">Reviews</a>
-  <a href="#order" style="color:var(--saffron)">Order Now →</a>
-  <a href="tel:+447784195499">📞 +44 7784 195499</a>
-</div>
+<!-- ===== ШАПКА ===== -->
+<header id="header">
+  <div class="container nav">
+    <a href="#" class="logo">STU<span>DIO</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#why">Зачем сайт</a>
+      <a href="#services">Услуги</a>
+      <a href="#works">Работы</a>
+      <a href="#process">Процесс</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-primary">Обсудить проект</a>
+      <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
 
-<!-- HERO -->
+<!-- ===== HERO ===== -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-pattern"></div>
-  <div class="hero-inner">
-    <div>
-      <div class="hero-eyebrow">
-        <span class="hero-eyebrow-flag">🇱🇰</span>
-        <span>Authentic Sri Lankan & South Indian · Watford</span>
-      </div>
-      <h1 class="hero-h1">
-        Taste of<br>
-        <em>Home</em><br>
-        in Watford
-      </h1>
-      <p class="hero-sub">Cooked with care, tradition & bold flavour</p>
-      <p class="hero-desc">Family recipes, fresh ingredients, and the authentic taste of Sri Lanka — right here at 413 St Albans Road, Watford. From crispy mutton rolls to fragrant biryani and banana leaf meals.</p>
-      <div class="hero-btns">
-        <a href="#order" class="btn-saffron">Order Now →</a>
-        <a href="#menu" class="btn-ghost-w">View Menu</a>
-      </div>
-      <div class="hero-tags">
-        <span class="hero-tag">🌿 Vegetarian Friendly</span>
-        <span class="hero-tag">🛵 Uber Eats & Deliveroo</span>
-        <span class="hero-tag">🥡 Takeaway</span>
-        <span class="hero-tag">🎂 Catering Available</span>
-      </div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="container">
+    <div class="badge reveal"><span class="dot"></span>Принимаю заказы на 2026 год</div>
+    <h1 class="reveal d1">Сайты, которые<br><span class="gradient-text">продают</span></h1>
+    <p class="reveal d2">Создаю современные сайты и лендинги с продуманным дизайном, плавной анимацией и фокусом на результат — больше заявок и клиентов для вашего бизнеса.</p>
+    <div class="hero-btns reveal d3">
+      <a href="#contact" class="btn btn-primary">Заказать сайт →</a>
+      <a href="#works" class="btn btn-ghost">Смотреть работы</a>
     </div>
-    <div class="hero-right">
-      <div class="hero-card">
-        <div class="hero-card-icon">⭐</div>
-        <div>
-          <div class="hero-card-num">4.8</div>
-          <div class="hero-card-lbl">171 Reviews · Google Maps</div>
-        </div>
-      </div>
-      <div class="hero-card">
-        <div class="hero-card-icon">🕐</div>
-        <div>
-          <div class="hero-card-num">11am–10pm</div>
-          <div class="hero-card-lbl">Open Daily · Tues–Sat & Sun</div>
-        </div>
-      </div>
-      <div class="hero-card">
-        <div class="hero-card-icon">💷</div>
-        <div>
-          <div class="hero-card-num">£1–10</div>
-          <div class="hero-card-lbl">Affordable authentic food</div>
-        </div>
-      </div>
-      <div class="hero-banana-leaf">
-        <div style="font-size:28px">🍃</div>
-        <div class="hero-banana-text">
-          <strong>6 Veg Curries Sappadu (Meal)</strong><br>
-          Served on banana leaf — just £7.00
-        </div>
-      </div>
+    <div class="hero-stats reveal d4">
+      <div class="stat"><div class="num gradient-text">50+</div><div class="label">проектов</div></div>
+      <div class="stat"><div class="num gradient-text">5 лет</div><div class="label">опыта</div></div>
+      <div class="stat"><div class="num gradient-text">98%</div><div class="label">довольных клиентов</div></div>
     </div>
   </div>
 </section>
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-track">
-    <span class="ticker-item">Mutton Rolls</span>
-    <span class="ticker-item">Banana Leaf Meals</span>
-    <span class="ticker-item">String Hoppers</span>
-    <span class="ticker-item">Appam</span>
-    <span class="ticker-item">Kothu</span>
-    <span class="ticker-item">Biryani</span>
-    <span class="ticker-item">Idly & Dosa</span>
-    <span class="ticker-item">Filter Coffee</span>
-    <span class="ticker-item">Pittu</span>
-    <span class="ticker-item">Vadai</span>
-    <span class="ticker-item">Mutton Rolls</span>
-    <span class="ticker-item">Banana Leaf Meals</span>
-    <span class="ticker-item">String Hoppers</span>
-    <span class="ticker-item">Appam</span>
-    <span class="ticker-item">Kothu</span>
-    <span class="ticker-item">Biryani</span>
-    <span class="ticker-item">Idly & Dosa</span>
-    <span class="ticker-item">Filter Coffee</span>
-    <span class="ticker-item">Pittu</span>
-    <span class="ticker-item">Vadai</span>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="ab-inner">
-    <div class="ab-grid">
-      <div class="reveal">
-        <div class="sec-tag">Our Story</div>
-        <h2 class="sec-h2">Real Sri Lankan<br>food that feels<br>like <em>home</em></h2>
-        <p class="ab-text">At VP Anna's Express, we serve authentic Sri Lankan and South Indian dishes that taste just like home. From fragrant rice and rich curries to crispy dosas and spicy sambals, every meal is cooked with care, tradition, and bold flavours.</p>
-        <p class="ab-text">Our food is made fresh daily, using family recipes and quality ingredients that bring comfort with every bite. Whether you're craving a hearty mutton curry or a light tiffin meal — we've got you.</p>
-        <div class="ab-quote">"The idly was so soft with the coconut chutney and sambar — it felt like home food. Finished with a nice filter coffee." — Ravindra T.</div>
-        <div class="ab-feats">
-          <div class="abfeat">
-            <div class="abfeat-icon">🌿</div>
-            <div>
-              <div class="abfeat-title">Fresh Daily</div>
-              <p class="abfeat-desc">Made fresh every day using quality ingredients and traditional recipes.</p>
-            </div>
-          </div>
-          <div class="abfeat">
-            <div class="abfeat-icon">🍃</div>
-            <div>
-              <div class="abfeat-title">Banana Leaf Serving</div>
-              <p class="abfeat-desc">Traditional sappadu served beautifully on banana leaf — an authentic experience.</p>
-            </div>
-          </div>
-          <div class="abfeat">
-            <div class="abfeat-icon">🥦</div>
-            <div>
-              <div class="abfeat-title">Vegetarian Friendly</div>
-              <p class="abfeat-desc">Extensive vegetarian menu with curries, dosas, idly, and more.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ab-right reveal rd1">
-        <div class="ab-img">🍛
-          <div class="ab-img-caption">"Portions were larger than expected and the mutton devil was amazing, the biryani was packed full of flavours."</div>
-        </div>
-        <div class="ab-badge">
-          <div class="ab-badge-num">4.8★</div>
-          <div class="ab-badge-txt">171 Reviews</div>
-        </div>
-      </div>
+<!-- ===== ПОЧЕМУ САЙТ В 2026 ===== -->
+<section class="sec" id="why">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag">Зачем нужен сайт в 2026</div>
+      <h2>Без сайта вас просто не найдут</h2>
+      <p>В 2026 году первое касание с клиентом происходит онлайн. Сайт работает на вас 24/7 — даже когда вы спите.</p>
     </div>
-    <div class="ab-stats reveal" style="margin-top:48px">
-      <div class="abstat"><div class="abstat-n">4.8★</div><div class="abstat-l">Google Rating</div></div>
-      <div class="abstat"><div class="abstat-n">171</div><div class="abstat-l">Reviews</div></div>
-      <div class="abstat"><div class="abstat-n">£7</div><div class="abstat-l">Banana Leaf Meal</div></div>
+    <div class="why-grid">
+      <div class="why-card reveal"><div class="ic">🔍</div><h3>Вас находят в поиске</h3><p>Клиенты ищут услуги в Google и Яндексе. Нет сайта — нет вас в результатах, а заказы уходят к конкурентам.</p></div>
+      <div class="why-card reveal d1"><div class="ic">📈</div><h3>Рост продаж</h3><p>Грамотный лендинг превращает посетителей в заявки. Продуманный путь клиента = больше выручки.</p></div>
+      <div class="why-card reveal d2"><div class="ic">⭐</div><h3>Доверие и статус</h3><p>Современный сайт показывает, что вы — серьёзный бизнес. Люди покупают у тех, кому доверяют.</p></div>
+      <div class="why-card reveal"><div class="ic">⚡</div><h3>Работает без выходных</h3><p>Сайт принимает заявки круглосуточно и автоматически, без вашего участия.</p></div>
+      <div class="why-card reveal d1"><div class="ic">📱</div><h3>Удобно с телефона</h3><p>80% трафика — мобильный. Адаптивный сайт не теряет ни одного клиента со смартфона.</p></div>
+      <div class="why-card reveal d2"><div class="ic">🎯</div><h3>Реклама работает лучше</h3><p>Хороший сайт — фундамент для рекламы. Без него бюджет на трафик сливается впустую.</p></div>
     </div>
   </div>
 </section>
 
-<!-- MENU -->
-<section id="menu">
-  <div class="mn-inner">
-    <div class="mn-head reveal">
-      <div class="sec-tag-c">Our Menu</div>
-      <h2 class="sec-h2-l">Authentic flavours<br>from <em>Sri Lanka</em></h2>
-      <p class="sec-d-l">From light tiffin bites to hearty rice and curry meals — every dish made fresh</p>
+<!-- ===== УСЛУГИ ===== -->
+<section class="sec" id="services">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag">Услуги</div>
+      <h2>Что я делаю</h2>
+      <p>Полный цикл — от идеи и дизайна до запуска и поддержки.</p>
     </div>
-    <div class="mn-tabs reveal">
-      <button class="mtab active" onclick="fMenu(this,'all')">All</button>
-      <button class="mtab" onclick="fMenu(this,'snack')">Short Eats</button>
-      <button class="mtab" onclick="fMenu(this,'breakfast')">Breakfast</button>
-      <button class="mtab" onclick="fMenu(this,'main')">Mains</button>
-      <button class="mtab" onclick="fMenu(this,'rice')">Rice & Curry</button>
-      <button class="mtab" onclick="fMenu(this,'drink')">Drinks</button>
-    </div>
-    <div class="mn-grid reveal" id="menuGrid">
-      <div class="mcard" data-cat="snack">
-        <div class="mcard-img">🥟</div>
-        <div class="mcard-body">
-          <div class="mcard-cat">Short Eats · 🌶 Popular</div>
-          <div class="mcard-name">Mutton Rolls</div>
-          <p class="mcard-desc">Crispy pastry rolls filled with spicy minced mutton and potatoes — a Sri Lankan street food classic.</p>
-          <div class="mcard-foot"><span class="mcard-price">£2.50</span><span class="mcard-badge">🔥 Best Seller</span></div>
-        </div>
-      </div>
-      <div class="mcard" data-cat="snack">
-        <div class="mcard-img">🥙</div>
-        <div class="mcard-body">
-          <div class="mcard-cat">Short Eats · Vegetarian</div>
-          <div class="mcard-name">Vegetable Rolls & Samosas</div>
-          <p class="mcard-desc">Golden-fried pastry rolls filled with spiced mixed vegetables, and crispy triangle pastries stuffed with potatoes and peas.</p>
-          <div class="mcard-foot"><span class="mcard-price">from £2.00</span><span class="mcard-badge">Veg 🌿</span></div>
-        </div>
-      </div>
-      <div class="mcard" data-cat="snack">
-        <div class="mcard-img">🍩</div>
-        <div class="mcard-body">
-          <div class="mcard-cat">Short Eats · Vegetarian</div>
-          <div class="mcard-name">Vadai (3 Pieces)</div>
-          <p class="mcard-desc">Soft and fluffy urid dal doughnuts, lightly spiced and deep-fried. A classic South Indian treat.</p>
-          <div class="mcard-foot"><span class="mcard-price">£2.50</span><span class="mcard-badge">91% ❤️</span></div>
-        </div>
-      </div>
-      <div class="mcard" data-cat="breakfast">
-        <div class="mcard-img">🫓</div>
-        <div class="mcard-body">
-          <div class="mcard-cat">Breakfast · Popular</div>
-          <div class="mcard-name">Appam</div>
-          <p class="mcard-desc">Traditional Sri Lankan rice pancakes — crispy edges, soft fluffy centre. Served with coconut milk or curry.</p>
-          <div class="mcard-foot"><span class="mcard-price">from £3.50</span><span class="mcard-badge">Favourite</span></div>
-        </div>
-      </div>
-      <div class="mcard" data-cat="breakfast">
-        <div class="mcard-img">🫙</div>
-        <div class="mcard-body">
-          <div class="mcard-cat">Breakfast</div>
-          <div class="mcard-name">Idly with Coconut Chutney & Sambar</div>
-          <p class="mcard-desc">Soft steamed rice cakes served with freshly made coconut chutney and flavourful lentil sambar. Just like home.</p>
-          <div class="mcard-foot"><span class="mcard-price">£4.50</span><span class="mcard-badge">⭐ Must Try</span></div>
-        </div>
-      </div>
-      <div class="mcard" data-cat="breakfast">
-        <div class="mcard-img">🥞</div>
-        <div class="mcard-body">
-          <div class="mcard-cat">Breakfast</div>
-          <div class="mcard-name">Dosa with Sambal & Sambar</div>
-          <p class="mcard-desc">3 crispy golden crepes served with spiced coconut sambal and warm lentil sambar. South Indian classic.</p>
-          <div class="mcard-foot"><span class="mcard-price">£7.50</span><span class="mcard-badge">Veg 🌿</span></div>
-        </div>
-      </div>
-      <div class="mcard" data-cat="main">
-        <div class="mcard-img">🍜</div>
-        <div class="mcard-body">
-          <div class="mcard-cat">Mains · #1 Most Liked</div>
-          <div class="mcard-name">Kothu</div>
-          <p class="mcard-desc">Sri Lankan-style chopped parotta stir-fried with your choice of mutton, chicken, seafood, or egg — with vegetables, spices, and curry sauce.</p>
-          <div class="mcard-foot"><span class="mcard-price">£9.75</span><span class="mcard-badge">🏆 Top Dish</span></div>
-        </div>
-      </div>
-      <div class="mcard" data-cat="rice">
-        <div class="mcard-img">🍚</div>
-        <div class="mcard-body">
-          <div class="mcard-cat">Rice & Curry · #2 Most Liked</div>
-          <div class="mcard-name">Fried Rice</div>
-          <p class="mcard-desc">Flavourful basmati stir-fried with Sri Lankan spices. Choose mutton, chicken, seafood, prawn, or chicken & prawn.</p>
-          <div class="mcard-foot"><span class="mcard-price">£9.75</span><span class="mcard-badge">90% ❤️</span></div>
-        </div>
-      </div>
-      <div class="mcard" data-cat="rice">
-        <div class="mcard-img">🍗</div>
-        <div class="mcard-body">
-          <div class="mcard-cat">Rice & Curry</div>
-          <div class="mcard-name">Chicken Biryani</div>
-          <p class="mcard-desc">Fragrant rice layered with spiced chicken, slow-cooked for bold, comforting flavour. Packed full of authentic Sri Lankan spices.</p>
-          <div class="mcard-foot"><span class="mcard-price">from £9.00</span><span class="mcard-badge">Party Fav 🎉</span></div>
-        </div>
-      </div>
-      <div class="mcard" data-cat="main">
-        <div class="mcard-img">🫘</div>
-        <div class="mcard-body">
-          <div class="mcard-cat">Mains · Vegetarian</div>
-          <div class="mcard-name">String Hoppers (25 pcs)</div>
-          <p class="mcard-desc">25 steamed string hoppers served with sambal and sothy. Light, delicate, and traditionally Sri Lankan.</p>
-          <div class="mcard-foot"><span class="mcard-price">£9.00</span><span class="mcard-badge">88% ❤️</span></div>
-        </div>
-      </div>
-      <div class="mcard" data-cat="rice">
-        <div class="mcard-img">🍃</div>
-        <div class="mcard-body">
-          <div class="mcard-cat">Rice & Curry · 🍃 Banana Leaf</div>
-          <div class="mcard-name">6 Veg Curries Sappadu</div>
-          <p class="mcard-desc">Six authentic vegetable curries served beautifully on a banana leaf. Incredibly good value for an authentic experience.</p>
-          <div class="mcard-foot"><span class="mcard-price">£7.00</span><span class="mcard-badge">Best Value</span></div>
-        </div>
-      </div>
-      <div class="mcard" data-cat="drink">
-        <div class="mcard-img">☕</div>
-        <div class="mcard-body">
-          <div class="mcard-cat">Drinks</div>
-          <div class="mcard-name">Filter Coffee</div>
-          <p class="mcard-desc">Traditional South Indian filter coffee — rich, aromatic and perfectly balanced. The ideal way to finish your meal.</p>
-          <div class="mcard-foot"><span class="mcard-price">from £2.00</span><span class="mcard-badge">Classic</span></div>
-        </div>
-      </div>
+    <div class="serv-grid">
+      <div class="serv-card reveal"><div class="num">01</div><h3>Лендинги</h3><p>Продающие одностраничники под рекламу и запуск продуктов. Чёткая структура, цепляющий оффер, высокая конверсия.</p></div>
+      <div class="serv-card reveal d1"><div class="num">02</div><h3>Корпоративные сайты</h3><p>Многостраничные сайты для компаний: услуги, о нас, блог, формы. Солидно и профессионально.</p></div>
+      <div class="serv-card reveal d2"><div class="num">03</div><h3>Интернет-магазины</h3><p>Каталог, корзина, оплата и доставка. Удобно покупать с любого устройства.</p></div>
+      <div class="serv-card reveal d3"><div class="num">04</div><h3>Редизайн и анимация</h3><p>Обновлю устаревший сайт: современный дизайн, плавные анимации, скорость загрузки.</p></div>
     </div>
   </div>
 </section>
 
-<!-- SPECIALS -->
-<section id="specials">
-  <div class="sp-inner">
-    <div class="sp-grid">
-      <div class="reveal">
-        <div class="sp-meals">
-          <div class="sp-meal">
-            <div class="sp-meal-icon">🍃</div>
-            <div>
-              <div class="sp-meal-name">6 Veg Curries Sappadu</div>
-              <p class="sp-meal-desc">Six vegetable curries served on a traditional banana leaf. Fresh, vibrant, and absolutely incredible.</p>
-              <span class="sp-meal-price">£7.00</span>
-            </div>
-          </div>
-          <div class="sp-meal">
-            <div class="sp-meal-icon">🎉</div>
-            <div>
-              <div class="sp-meal-name">Veg Meal Deal</div>
-              <p class="sp-meal-desc">Our most popular vegetarian combo — great for groups and celebrations.</p>
-              <span class="sp-meal-price">£10.50</span>
-            </div>
-          </div>
-          <div class="sp-meal">
-            <div class="sp-meal-icon">🥘</div>
-            <div>
-              <div class="sp-meal-name">Party Catering</div>
-              <p class="sp-meal-desc">We prepared a birthday party spread — guests were stunned by the quality and generous portions.</p>
-              <span class="sp-meal-price">Call us</span>
-            </div>
-          </div>
-          <div class="sp-meal">
-            <div class="sp-meal-icon">🍺</div>
-            <div>
-              <div class="sp-meal-name">Mutton Devil</div>
-              <p class="sp-meal-desc">Bold, spicy, full of flavour. A customer party favourite — "the mutton devil was amazing."</p>
-              <span class="sp-meal-price">from £9.00</span>
-            </div>
-          </div>
+<!-- ===== ПОРТФОЛИО ===== -->
+<!-- Чтобы добавить свою работу: скопируй блок <a class="work-card">…</a> и замени картинку, текст и ссылку -->
+<section class="sec" id="works">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag">Портфолио</div>
+      <h2>Мои работы</h2>
+      <p>Несколько проектов, которыми я горжусь. Замените на свои примеры.</p>
+    </div>
+    <div class="works-grid">
+
+      <a class="work-card reveal" href="#" target="_blank">
+        <div class="work-thumb" style="background-image:url('https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=900&q=80')"></div>
+        <div class="work-body">
+          <h3>Проект «Название»</h3>
+          <p>Краткое описание: что за проект и какой результат он принёс.</p>
+          <div class="work-tags"><span class="tag-chip">Лендинг</span><span class="tag-chip">Анимация</span></div>
+          <span class="work-arrow">Открыть проект →</span>
         </div>
-      </div>
-      <div class="sp-right reveal rd1">
-        <div class="sec-tag">House Specials</div>
-        <h2 class="sp-h2">Meals worth<br>coming <em>back for</em></h2>
-        <p class="sp-text">Our banana leaf sappadu is more than a meal — it's an experience. Six freshly made vegetable curries, served the traditional way, at a price that makes it even more special.</p>
-        <div class="sp-leaf-note">
-          <span style="font-size:24px">🍃</span>
-          <p>We also cater for <strong>parties and events</strong> — quality and generous portions every time. Call us to arrange your order in advance.</p>
+      </a>
+
+      <a class="work-card reveal d1" href="#" target="_blank">
+        <div class="work-thumb" style="background-image:url('https://images.unsplash.com/photo-1559028012-481c04fa702d?w=900&q=80')"></div>
+        <div class="work-body">
+          <h3>Проект «Название»</h3>
+          <p>Краткое описание: что за проект и какой результат он принёс.</p>
+          <div class="work-tags"><span class="tag-chip">Корп. сайт</span><span class="tag-chip">UX/UI</span></div>
+          <span class="work-arrow">Открыть проект →</span>
         </div>
-        <a href="tel:+447784195499" class="btn-saffron" style="display:inline-flex;align-items:center;gap:8px">📞 Call to Order</a>
-      </div>
+      </a>
+
+      <a class="work-card reveal" href="#" target="_blank">
+        <div class="work-thumb" style="background-image:url('https://images.unsplash.com/photo-1551650975-87deedd944c3?w=900&q=80')"></div>
+        <div class="work-body">
+          <h3>Проект «Название»</h3>
+          <p>Краткое описание: что за проект и какой результат он принёс.</p>
+          <div class="work-tags"><span class="tag-chip">Магазин</span><span class="tag-chip">Адаптив</span></div>
+          <span class="work-arrow">Открыть проект →</span>
+        </div>
+      </a>
+
+      <a class="work-card reveal d1" href="#" target="_blank">
+        <div class="work-thumb" style="background-image:url('https://images.unsplash.com/photo-1481487196290-c152efe083f5?w=900&q=80')"></div>
+        <div class="work-body">
+          <h3>Проект «Название»</h3>
+          <p>Краткое описание: что за проект и какой результат он принёс.</p>
+          <div class="work-tags"><span class="tag-chip">Редизайн</span><span class="tag-chip">Брендинг</span></div>
+          <span class="work-arrow">Открыть проект →</span>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
 
-<!-- REVIEWS -->
-<section id="reviews">
-  <div class="rv-inner">
-    <div class="rv-head reveal">
-      <div>
-        <div class="sec-tag">What Customers Say</div>
-        <h2 class="sec-h2">People love<br>VP Anna's</h2>
-      </div>
-      <div class="rv-rating">
-        <div class="rv-big">4.8</div>
-        <div class="rv-stars">★★★★★</div>
-        <div class="rv-count">171 Reviews · Google Maps</div>
-      </div>
+<!-- ===== ПРОЦЕСС ===== -->
+<section class="sec" id="process">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag">Процесс</div>
+      <h2>Как мы работаем</h2>
+      <p>Прозрачно и по этапам — вы всегда понимаете, что происходит.</p>
     </div>
-    <div class="rv-grid reveal">
-      <div class="rcard">
-        <div class="rcard-top">
-          <div class="rcard-av">P</div>
-          <div class="rcard-stars">★★★★★</div>
-        </div>
-        <p class="rcard-text">I tried the 6 Authentic Vegetable Curries Sappadu for just £7.00, served beautifully on a banana leaf — and it was absolutely incredible! A truly authentic experience.</p>
-        <div class="rcard-foot">
-          <div class="rcard-name">Pragash Ganeshamoorthy</div>
-          <div class="rcard-src">Google Maps · 5 months ago</div>
-        </div>
-      </div>
-      <div class="rcard">
-        <div class="rcard-top">
-          <div class="rcard-av">G</div>
-          <div class="rcard-stars">★★★★★</div>
-        </div>
-        <p class="rcard-text">We ordered food for a birthday party and were stunned at the quality and quantity. Portions were larger than expected and the mutton devil was amazing. The biryani was packed full of flavours.</p>
-        <div class="rcard-foot">
-          <div class="rcard-name">Google User</div>
-          <div class="rcard-src">Google Maps · Local Expert · 67 reviews</div>
-        </div>
-      </div>
-      <div class="rcard">
-        <div class="rcard-top">
-          <div class="rcard-av">R</div>
-          <div class="rcard-stars">★★★★★</div>
-        </div>
-        <p class="rcard-text">I went for breakfast and the food was amazing. The idly was so soft with coconut chutney and sambar — it felt like home food. The Appam was absolutely incredible! Finished with a nice filter coffee.</p>
-        <div class="rcard-foot">
-          <div class="rcard-name">Ravindra T</div>
-          <div class="rcard-src">Google Maps · 1 year ago</div>
-        </div>
-      </div>
+    <div class="steps">
+      <div class="step reveal"><div class="n">01</div><h3>Бриф</h3><p>Обсуждаем задачи, цели и вашу аудиторию.</p></div>
+      <div class="step reveal d1"><div class="n">02</div><h3>Дизайн</h3><p>Готовлю прототип и визуальный концепт.</p></div>
+      <div class="step reveal d2"><div class="n">03</div><h3>Вёрстка</h3><p>Адаптивная вёрстка с анимацией и оптимизацией.</p></div>
+      <div class="step reveal d3"><div class="n">04</div><h3>Запуск</h3><p>Публикуем сайт и подключаем аналитику.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ORDER -->
-<section id="order">
-  <div class="or-inner">
-    <div class="or-grid">
-      <div class="reveal">
-        <div class="sec-tag">Order & Find Us</div>
-        <h2 class="sec-h2">Ready to eat?<br><em>Order now</em></h2>
-        <p style="font-size:14px;font-weight:300;color:var(--muted);line-height:1.8;margin-bottom:8px">Order through Uber Eats or Deliveroo for delivery — or simply call us for takeaway and party orders.</p>
-        <div class="or-platforms">
-          <a href="https://www.ubereats.com/gb/store/vp-annas-express/EbjAM6LPUMuIY9N8LNqPUA" target="_blank" class="or-platform">
-            <div class="or-platform-icon">🛵</div>
-            <div>
-              <div class="or-platform-name">Uber Eats</div>
-              <div class="or-platform-desc">Order delivery online · 4.7 stars · 180+ ratings</div>
-            </div>
-            <div class="or-platform-arrow">→</div>
-          </a>
-          <a href="https://deliveroo.co.uk/menu/london/north-watford/vp-annas-express-413-saint-albans-road" target="_blank" class="or-platform">
-            <div class="or-platform-icon">🏍️</div>
-            <div>
-              <div class="or-platform-name">Deliveroo</div>
-              <div class="or-platform-desc">Fast delivery from North Watford</div>
-            </div>
-            <div class="or-platform-arrow">→</div>
-          </a>
-          <a href="tel:+447784195499" class="or-platform">
-            <div class="or-platform-icon">📞</div>
-            <div>
-              <div class="or-platform-name">Call to Order</div>
-              <div class="or-platform-desc">+44 7784 195499 · Takeaway & Party Catering</div>
-            </div>
-            <div class="or-platform-arrow">→</div>
-          </a>
-        </div>
-      </div>
-      <div class="or-info reveal rd1">
-        <div class="or-info-title">VP Anna's Express</div>
-        <div class="or-info-sub">413 St Albans Rd, Watford WD24 6PR</div>
-        <div class="or-info-items">
-          <div class="or-info-item">
-            <span class="or-info-ico">📍</span>
-            <div>
-              <div class="or-info-lbl">Address</div>
-              <div class="or-info-val">413 St Albans Road, Watford WD24 6PR, United Kingdom</div>
-            </div>
-          </div>
-          <div class="or-info-item">
-            <span class="or-info-ico">🕐</span>
-            <div>
-              <div class="or-info-lbl">Opening Hours</div>
-              <div class="or-info-val">Tue–Sat: 11:00 – 21:30<br>Sunday: 11:00 – 21:30<br>Monday: 11:00 – 20:30</div>
-            </div>
-          </div>
-          <div class="or-info-item">
-            <span class="or-info-ico">📞</span>
-            <div>
-              <div class="or-info-lbl">Phone</div>
-              <div class="or-info-val"><a href="tel:+447784195499">+44 7784 195499</a></div>
-            </div>
-          </div>
-          <div class="or-info-item">
-            <span class="or-info-ico">📸</span>
-            <div>
-              <div class="or-info-lbl">Instagram</div>
-              <div class="or-info-val"><a href="https://instagram.com/vpannasexpress_" target="_blank">@vpannasexpress_</a></div>
-            </div>
-          </div>
-          <div class="or-info-item">
-            <span class="or-info-ico">💷</span>
-            <div>
-              <div class="or-info-lbl">Price Range</div>
-              <div class="or-info-val">£1–10 per person · Great value</div>
-            </div>
-          </div>
-        </div>
-      </div>
+<!-- ===== CTA / КОНТАКТЫ ===== -->
+<section class="sec" id="contact">
+  <div class="container">
+    <div class="cta-wrap reveal">
+      <h2>Готовы к новому сайту?</h2>
+      <p>Оставьте заявку — обсудим ваш проект и подберём решение под задачу и бюджет.</p>
+      <!-- Чтобы заявки приходили на почту: зарегистрируйтесь на formspree.io и вставьте action="https://formspree.io/f/ВАШ_ID" method="POST" -->
+      <form class="form" id="leadForm">
+        <input type="text" name="name" placeholder="Ваше имя" required />
+        <input type="text" name="contact" placeholder="Телефон или Telegram" required />
+        <textarea name="message" placeholder="Коротко о проекте"></textarea>
+        <button type="submit" class="btn btn-primary" style="justify-content:center">Отправить заявку</button>
+      </form>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ===== ПОДВАЛ ===== -->
 <footer>
-  <div class="ft-inner">
-    <div class="ft-top">
-      <div>
-        <div class="ft-logo">🌿 VP Anna's Express</div>
-        <div class="ft-slogan">Authentic Sri Lankan & South Indian Food</div>
-        <p class="ft-desc">Made fresh daily with family recipes and quality ingredients. Serving Watford with love, tradition, and bold Sri Lankan flavours.</p>
-        <div class="ft-socials">
-          <a href="https://instagram.com/vpannasexpress_" class="ftsoc" target="_blank">📷</a>
-          <a href="https://www.ubereats.com/gb/store/vp-annas-express/EbjAM6LPUMuIY9N8LNqPUA" class="ftsoc" target="_blank">🛵</a>
-          <a href="tel:+447784195499" class="ftsoc">📞</a>
-        </div>
-      </div>
-      <div>
-        <div class="ft-col-h">Menu</div>
-        <ul class="ft-links">
-          <li><a href="#menu">Short Eats</a></li>
-          <li><a href="#menu">Breakfast</a></li>
-          <li><a href="#menu">Kothu & Mains</a></li>
-          <li><a href="#menu">Rice & Curry</a></li>
-          <li><a href="#menu">Drinks</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="ft-col-h">Info</div>
-        <ul class="ft-links">
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#specials">House Specials</a></li>
-          <li><a href="#reviews">Reviews</a></li>
-          <li><a href="#order">Order Online</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="ft-col-h">Contact</div>
-        <ul class="ft-links">
-          <li><a href="tel:+447784195499">+44 7784 195499</a></li>
-          <li><a href="https://www.ubereats.com/gb/store/vp-annas-express/EbjAM6LPUMuIY9N8LNqPUA" target="_blank">Uber Eats</a></li>
-          <li><a href="https://deliveroo.co.uk/menu/london/north-watford/vp-annas-express-413-saint-albans-road" target="_blank">Deliveroo</a></li>
-          <li><a href="https://instagram.com/vpannasexpress_" target="_blank">Instagram</a></li>
-          <li><a href="#" style="color:rgba(253,246,236,.2);pointer-events:none">413 St Albans Rd, Watford</a></li>
-        </ul>
+  <div class="container">
+    <div class="foot">
+      <a href="#" class="logo">STU<span>DIO</span></a>
+      <div class="foot-links">
+        <a href="#">Telegram</a>
+        <a href="#">WhatsApp</a>
+        <a href="mailto:hello@example.com">hello@example.com</a>
+        <a href="tel:+70000000000">+7 (000) 000-00-00</a>
       </div>
     </div>
-    <div class="ft-bottom">
-      <div class="ft-copy">© 2025 VP Anna's Express · 413 St Albans Rd, Watford WD24 6PR</div>
-      <div class="ft-badge">
-        <span>⭐ 4.8 · 171 Reviews · Google Maps</span>
-      </div>
-    </div>
+    <div class="copy">© 2026 STUDIO. Все права защищены.</div>
   </div>
 </footer>
 
-<a href="#order" class="float">🍃 Order Now</a>
-
 <script>
-// Nav
-window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>50)});
-// Hamburger
-document.getElementById('hbg').addEventListener('click',()=>document.getElementById('mobNav').classList.toggle('open'));
-document.querySelectorAll('.mob-nav a').forEach(a=>a.addEventListener('click',()=>document.getElementById('mobNav').classList.remove('open')));
-// Reveal
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
-},{threshold:.08});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-// Menu filter
-function fMenu(btn,cat){
-  document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.mcard').forEach(c=>{c.style.display=(cat==='all'||c.dataset.cat===cat)?'block':'none'});
-}
+/* Шапка при скролле */
+const header=document.getElementById('header');
+window.addEventListener('scroll',()=>{header.classList.toggle('scrolled',window.scrollY>30)});
+
+/* Мобильное меню */
+const burger=document.getElementById('burger');
+const navLinks=document.getElementById('navLinks');
+burger.addEventListener('click',()=>{burger.classList.toggle('active');navLinks.classList.toggle('open')});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{burger.classList.remove('active');navLinks.classList.remove('open')}));
+
+/* Анимация появления при скролле */
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target)}});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* Подсветка карточек услуг за курсором */
+document.querySelectorAll('.serv-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--mx',(e.clientX-r.left)+'px');
+    card.style.setProperty('--my',(e.clientY-r.top)+'px');
+  });
+});
+
+/* Обработка формы (демо) */
+document.getElementById('leadForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  alert('Спасибо! Заявка отправлена. Я свяжусь с вами в ближайшее время.');
+  e.target.reset();
+});
 </script>
 </body>
 </html>
